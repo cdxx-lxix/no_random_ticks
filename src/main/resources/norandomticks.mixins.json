@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "com.cdxx_lxix.norandomticks.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "norandomticks.refmap.json",
+  "mixins": [
+    "MixinBlockBehaviour"
+  ],
+  "client": [
+  ],
+  "minVersion": "0.8"
+}
