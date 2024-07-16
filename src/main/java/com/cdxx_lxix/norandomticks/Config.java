@@ -30,9 +30,9 @@ public class Config {
     static final ForgeConfigSpec SPEC = BUILDER.build();
 
     //OpenHashSet for speeeeeeeeed
-    public static final ObjectOpenHashSet<Block> BLACKLIST = new ObjectOpenHashSet<>();
+    public static final ObjectOpenHashSet<Block> BLACKLIST_RANDOM = new ObjectOpenHashSet<>();
 
-    public static final ObjectOpenHashSet<Block> TICKLIST = new ObjectOpenHashSet<>();
+    public static final ObjectOpenHashSet<Block> BLACKLIST_TICKS = new ObjectOpenHashSet<>();
 
     private static boolean validateItemName(final Object obj) {
         // Prevent non-blocks or bad names
@@ -44,10 +44,10 @@ public class Config {
         NoRandomticksMod.LOG.debug("config reloaded");
         if (event.getConfig().getModId().equals(NoRandomticksMod.MODID)) {
             // Clears lists just in case and adds one-by-one each blocked item.
-            BLACKLIST.clear();
-            TICKLIST.clear();
-            BLOCK_STRINGS_RANDOM.get().forEach(s -> BLACKLIST.add(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(s))));
-            BLOCK_STRINGS_TICKS.get().forEach(s -> TICKLIST.add(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(s))));
+            BLACKLIST_RANDOM.clear();
+            BLACKLIST_TICKS.clear();
+            BLOCK_STRINGS_RANDOM.get().forEach(s -> BLACKLIST_RANDOM.add(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(s))));
+            BLOCK_STRINGS_TICKS.get().forEach(s -> BLACKLIST_TICKS.add(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(s))));
         }
     }
 }

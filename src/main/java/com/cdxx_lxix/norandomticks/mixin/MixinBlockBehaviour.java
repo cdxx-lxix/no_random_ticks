@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MixinBlockBehaviour {
     @Shadow public abstract Block getBlock();
 
-    // Injects into randomTick method of the BlockBehaviour class and prevents it from happening if a block is in BLACKLIST.
+    // Injects into randomTick() method of the BlockBehaviour class and prevents it from happening if a block is in BLACKLIST_RANDOM.
     @Inject(method = "randomTick(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)V", at = @At("HEAD"), cancellable = true)
     private void randomTickInjection(ServerLevel pLevel, BlockPos pPos, RandomSource pRandom, CallbackInfo ci) {
         pLevel.getServer().getProfiler().push("no_random_tick_check_blocks");
@@ -25,6 +25,7 @@ public abstract class MixinBlockBehaviour {
         pLevel.getServer().getProfiler().pop();
     }
 
+    // Injects into tick() method of the BlockBehaviour class and prevents it from happening if a block is in BLACKLIST_TICKS.
     @Inject(method= "tick(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)V", at = @At("HEAD"), cancellable = true)
     private void tickInjection(ServerLevel pLevel, BlockPos pPos, RandomSource pRandom, CallbackInfo ci) {
         pLevel.getServer().getProfiler().push("no_tick_check_blocks");

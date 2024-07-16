@@ -17,9 +17,9 @@ public class NoRandomticksMod {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
-    public static boolean isRandomTickAllowed(Block block) {
-        return Config.BLACKLIST.contains(block);
-    }
+    public static boolean isRandomTickAllowed(Block block) { return Config.BLACKLIST_RANDOM.contains(block); }
 
-    public static boolean isTickingAllowed(Block block) { return Config.TICKLIST.contains(block); }
+    public static boolean isTickingAllowed(Block block) {
+        return Config.BLACKLIST_TICKS.contains(block);
+    }
 }
