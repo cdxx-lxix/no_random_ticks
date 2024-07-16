@@ -18,7 +18,7 @@ public abstract class MixinBlockBehaviour {
     // Injects into randomTick method of the BlockBehaviour class and prevents it from happening if a block is in BLACKLIST.
     @Inject(method = "randomTick(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)V", at = @At("HEAD"), cancellable = true)
     private void randomTickInjection(ServerLevel pLevel, BlockPos pPos, RandomSource pRandom, CallbackInfo ci) {
-        pLevel.getServer().getProfiler().push("norandomtickcheck_blocks");
+        pLevel.getServer().getProfiler().push("no_random_tick_check_blocks");
         if (NoRandomticksMod.isRandomTickAllowed(this.getBlock())) {
             ci.cancel();
         }
@@ -27,6 +27,10 @@ public abstract class MixinBlockBehaviour {
 
     @Inject(method= "tick(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)V", at = @At("HEAD"), cancellable = true)
     private void tickInjection(ServerLevel pLevel, BlockPos pPos, RandomSource pRandom, CallbackInfo ci) {
-
+        pLevel.getServer().getProfiler().push("no_tick_check_blocks");
+        if (NoRandomticksMod.isTickingAllowed(this.getBlock())) {
+            ci.cancel();
+        }
+        pLevel.getServer().getProfiler().pop();
     }
 }

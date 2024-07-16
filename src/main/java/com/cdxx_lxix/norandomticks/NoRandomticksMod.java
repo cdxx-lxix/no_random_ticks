@@ -21,5 +21,5 @@ public class NoRandomticksMod {
         return Config.BLACKLIST.contains(block);
     }
 
-
+    public static boolean isTickingAllowed(Block block) { return Config.TICKLIST.contains(block); }
 }
