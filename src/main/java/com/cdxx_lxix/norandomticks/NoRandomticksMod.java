@@ -1,6 +1,6 @@
 package com.cdxx_lxix.norandomticks;
 
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -17,7 +17,9 @@ public class NoRandomticksMod {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
-    public static boolean notickcheck(BlockState blockState) {
-        return Config.BLACKLIST.contains(blockState.getBlock());
+    public static boolean isRandomTickAllowed(Block block) {
+        return Config.BLACKLIST.contains(block);
     }
+
+
 }
