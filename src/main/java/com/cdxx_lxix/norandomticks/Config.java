@@ -16,16 +16,21 @@ public class Config {
     private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 
     private static final ForgeConfigSpec.ConfigValue<List<? extends String>> BLOCK_STRINGS_RANDOM = BUILDER
-            .comment("A list of IDs to shut them up. Every element must be in \"\" and divided by , from one another.")
-            .comment("You can prevent RANDOM ticking of any block in the game. Be it vanilla or modded.")
+            .comment("A list of IDs to shut them up. Every element must be in \"\" and divided by comma from one another.")
+            .comment("Prevents RANDOM ticking of any block in the game. Be it vanilla or modded.")
             .comment("E.G. [\"minecraft:copper_block\", \"minecraft:bamboo\"]")
             .defineListAllowEmpty("randomticks_blocks", List.of(""), Config::validateItemName);
 
     private static final ForgeConfigSpec.ConfigValue<List<? extends String>> BLOCK_STRINGS_TICKS = BUILDER
-            .comment("You can prevent TICKING of any block in the game. Be it vanilla or modded.")
+            .comment("Prevents TICKING of any block in the game. Be it vanilla or modded. A list of IDs separated by comma just like with randoms.")
             .comment("USE AT YOUR OWN DISCRETION. YOU MUST KNOW WHAT YOU ARE DOING OR YOU CAN BREAK GAMEPLAY.")
             .comment("E.G. [\"minecraft:fire\"]")
             .defineListAllowEmpty("ticks_blocks", List.of(""), Config::validateItemName);
+
+    private static final ForgeConfigSpec.BooleanValue DEBUG = BUILDER
+            .comment("Set it to 'true' to allow console messages on loading and reloading that will list all of the blocks to be blocked from random and regular ticking")
+            .comment("You can find them later in the console - 'NORANDOMTICKS | DEBUG' will appear at the start of the message")
+            .define("debug", false);
 
     static final ForgeConfigSpec SPEC = BUILDER.build();
 
@@ -39,6 +44,10 @@ public class Config {
         return obj instanceof final String itemName && ForgeRegistries.BLOCKS.containsKey(new ResourceLocation(itemName));
     }
 
+    private static boolean validateItemBoolean(ForgeConfigSpec.BooleanValue obj) {
+        return obj instanceof ForgeConfigSpec.BooleanValue;
+    }
+
     @SubscribeEvent
     static void onLoad(final ModConfigEvent event) {
         NoRandomticksMod.LOG.debug("config reloaded");
@@ -48,6 +57,13 @@ public class Config {
             BLACKLIST_TICKS.clear();
             BLOCK_STRINGS_RANDOM.get().forEach(s -> BLACKLIST_RANDOM.add(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(s))));
             BLOCK_STRINGS_TICKS.get().forEach(s -> BLACKLIST_TICKS.add(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(s))));
+            if(validateItemBoolean(DEBUG)) {
+                NoRandomticksMod.LOG.info("NORANDOMTICKS | DEBUG ");
+                NoRandomticksMod.LOG.info("You have enabled debugging. To remove set it to 'false' in the config. ");
+                NoRandomticksMod.LOG.debug("Random Blacklist: " + BLACKLIST_RANDOM);
+                NoRandomticksMod.LOG.debug("Tick Blacklist: " + BLACKLIST_TICKS);
+            }
+
         }
     }
 }
