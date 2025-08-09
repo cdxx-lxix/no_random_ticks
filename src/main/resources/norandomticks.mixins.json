@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "com.cdxx_lxix.norandomticks.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "MixinBlockBehaviour"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}
