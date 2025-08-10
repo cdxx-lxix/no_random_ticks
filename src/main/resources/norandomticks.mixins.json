@@ -3,7 +3,9 @@
   "package": "com.cdxx_lxix.norandomticks.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "MixinBlockBehaviour"
+    "MixinBlockBehaviour",
+    "MixinFlowingFluidBehaviour",
+    "MixinFluidBehaviour"
   ],
   "injectors": {
     "defaultRequire": 1

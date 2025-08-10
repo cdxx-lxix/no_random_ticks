@@ -1,6 +1,10 @@
 package com.cdxx_lxix.norandomticks;
 
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.material.Fluid;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.config.ModConfigEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -11,8 +15,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.ModContainer;
 
-import static com.cdxx_lxix.norandomticks.Config.BLACKLIST_RANDOM;
-import static com.cdxx_lxix.norandomticks.Config.BLACKLIST_TICKS;
+import static com.cdxx_lxix.norandomticks.Config.*;
 
 @Mod(NoRandomTicks.MODID)
 public class NoRandomTicks {
@@ -30,5 +33,13 @@ public class NoRandomTicks {
 
     public static boolean isTickingAllowed(Block block) {
         return BLACKLIST_TICKS.contains(BuiltInRegistries.BLOCK.getKey(block).toString());
+    }
+
+    public static boolean isTickingAllowedFluids(Fluid fluid) {
+        return BLACKLIST_FLUID_TICKS.contains(BuiltInRegistries.FLUID.getKey(fluid).toString());
+    }
+
+    public static boolean isRandomTickingAllowedFluids(Fluid fluid) {
+        return BLACKLIST_FLUID_RANDOM.contains(BuiltInRegistries.FLUID.getKey(fluid).toString());
     }
 }
