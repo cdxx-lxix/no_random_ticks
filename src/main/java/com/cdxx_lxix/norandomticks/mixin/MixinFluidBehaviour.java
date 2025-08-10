@@ -2,8 +2,6 @@ package com.cdxx_lxix.norandomticks.mixin;
 
 import com.cdxx_lxix.norandomticks.NoRandomTicks;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
@@ -16,11 +14,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Objects;
 
-import static com.cdxx_lxix.norandomticks.Config.BLACKLIST_FLUID_RANDOM;
-
 @Mixin(FluidState.class)
 public abstract class MixinFluidBehaviour {
-
     @Shadow public abstract Fluid getType();
 
     @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)

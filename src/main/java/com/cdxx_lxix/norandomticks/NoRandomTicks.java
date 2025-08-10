@@ -1,10 +1,7 @@
 package com.cdxx_lxix.norandomticks;
 
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.material.Fluid;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.event.config.ModConfigEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
