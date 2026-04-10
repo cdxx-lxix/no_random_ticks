@@ -47,8 +47,18 @@ This territory is full of surprizes. Some blocks may be unaffected at all while 
 Furnaces don't give a shit. So, unless you know how a block works or ready for a long process of trail & error, I recommend to avoid this feature. 
 
 #### Fluids
-I couldn't prevent them from ticking because they have a very specific logic tied to this method which is unique to every liquid. So, if you prevent it from happening the game crashes. 
-If you know how to do that, please tell me. 
+Fluids are blockable too now. In vanila it works like this: random ticking is for effects like lava settings things on fire while ticking is responsible mostly for spreading. 
+I haven't tested any fluids besides vanila so I don't know how safe it is to ban them. So far, no reports of any problems.
+
+#### Regex support
+@pigporker (curseforge) suggested to add a regex support, so here it is. 
+Regex works together with per block arrays, on config load/reload they are combined in one blacklist. You can write huge-ass patterns or divide them into an array of smaller patterns, it's up to you. 
+Regex is super useful but not very user-friendly, so errors aren't affected by DEBUG option of the config. They are always ON. I tried to make them useful and verbose to help you debug. For example a messed up pattern hints you to a problem:
+```shell
+[02:12:20] [modloading-worker-0/WARN] [NoRandomticksMod/]: Rejected invalid regex pattern '^[minecraft:.*': Unclosed character class near index 13
+^[minecraft:.*
+             ^
+```
 
 ## Usage
 The way I see it, this mod may help you:
